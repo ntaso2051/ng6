@@ -18,4 +18,8 @@ export default abstract class Scene extends PIXI.Container {
         onTransitionFinished(this);
     }
 
+    public beginTransitionOut(onTransitionFinished: (scene: Scene)=>void): void {
+        onTransitionFinished(this);
+    }
+
 }
