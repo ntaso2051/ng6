@@ -1,11 +1,13 @@
 import * as PIXI from 'pixi.js';
 import UpdateObject from '../interfaces/UpdateObject';
 import Transition from '../interfaces/Transition';
-import Immediate from '../example/transition/Immediate';
+import Fade from '../example/transition/Fade';
 
 export default abstract class Scene extends PIXI.Container {
-  protected transitionIn: Transition = new Immediate();
-  protected transitionOut: Transition = new Immediate();
+    protected transitionIn: Transition = new Fade(1.0, 0.0, -0.01);
+    protected transitionOut: Transition = new Fade(0.0, 1.0, 0.01);
+
+  protected objectsToUpdate: UpdateObject[] = [];
 
   public update(delta: number): void {
     if (this.transitionIn.isActive()) {
@@ -16,11 +18,22 @@ export default abstract class Scene extends PIXI.Container {
   }
 
   protected registerUpdatingObject(object: UpdateObject): void {
-    console.log(object);
+    this.objectsToUpdate.push(object);
   }
 
   protected updateRegisteredObjects(delta: number): void {
-    console.log(delta);
+    const nextObjectstoUpdate = [];
+
+    for (let i = 0; i < this.objectsToUpdate.length; i++) {
+      const obj = this.objectsToUpdate[i];
+      if (!obj || obj.isDestroyed()) {
+        continue;
+      }
+      obj.update(delta);
+      nextObjectstoUpdate.push(obj);
+    }
+
+    this.objectsToUpdate = nextObjectstoUpdate;
   }
 
   public beginTransitionIn(onTransitionFinished: (scene: Scene) => void): void {
