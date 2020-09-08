@@ -1,12 +1,7 @@
-import GameManager from './example/GameManager';
-import FirstScene from './example/FirstScene';
+// import * as PIXI from 'pixi.js';
+import SlotGame from './SlotGame';
 
 window.onload = () => {
-  GameManager.start({
-    glWidth: 1136,
-    glHeight: 640,
-    bgColor: 0x222222,
-  });
-
-  GameManager.loadScene(new FirstScene());
+  const game = new SlotGame();
+  game.start();
 };
