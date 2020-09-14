@@ -41,7 +41,8 @@ export default abstract class Scene extends PIXI.Container {
     const container = this.transitionOut.getContainer();
     if (container) {
       this.addChild(container);
-      this.transitionOut.begin();
     }
+    
+    this.transitionOut.begin();
   }
 }
