@@ -11,8 +11,8 @@ export default class FirstScene extends Scene {
   constructor() {
     super();
 
-    this.transitionIn=new Fade(1.0, 0.0, -0.01);
-    this.transitionOut=new Fade(0.0, 1.0, 0.01);
+    this.transitionIn = new Fade(1.0, 0.0, -0.01);
+    this.transitionOut = new Fade(0.0, 1.0, 0.01);
 
     const renderer = GameManager.instance.game.renderer;
 
@@ -21,6 +21,7 @@ export default class FirstScene extends Scene {
       new PIXI.TextStyle({
         fontSize: 64,
         fill: 0xffffff,
+        fontFamily: 'MisakiGothic',
       })
     );
     this.text.interactive = true;
@@ -32,13 +33,13 @@ export default class FirstScene extends Scene {
   }
 
   public update(dt: number): void {
-      super.update(dt);
+    super.update(dt);
 
-      this.text.text=`first scene\n${this.count++}`;
+    this.text.text = `first scene\n${this.count++}`;
   }
 
-  public nextScene(): void{
-      GameManager.loadScene(new SecondScene());
-      console.log(`to second scene`);
+  public nextScene(): void {
+    GameManager.loadScene(new SecondScene());
+    console.log(`to second scene`);
   }
 }
